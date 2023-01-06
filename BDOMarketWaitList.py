@@ -1,5 +1,4 @@
 import urllib.request
-import requests
 import json
 from datetime import datetime
 
@@ -48,6 +47,7 @@ def printResults(data):
             if k == "liveAt":
                 date = datetime.fromtimestamp(v).strftime("%H:%M:%S")
                 obj["Listeleneceği saat"] = date
+                obj["Sıra"] += 1
 
         for key,val in obj.items():
             print("""{} : {}""".format(key,val))
