@@ -8,7 +8,7 @@ def printResults(data):
     # Use the json module to load the string data into a dictionary
     theJSON = json.loads(data)
     # Created a new dict for our getted datas
-    obj = {"Sıra: ": 0, "Item: ": "", "Fiyat: ": "", "Listeleneceği saat: ": ""}
+    obj = {"Sıra": 0, "Item": "", "Fiyat": "", "Listeleneceği saat": "", " -----------------------------> ": "✓"}
 
     # We querying if it's a list. Cuz theJSON has can more data
     if type(theJSON) == list:
@@ -20,18 +20,18 @@ def printResults(data):
             for k,v in theJSON[i].items():
 
                 if k == "name":
-                    obj["Item: "] = v
+                    obj["Item"] = v
 
                 if k == "price":
-                    obj["Fiyat: "] = "{:,d}".format(v)
+                    obj["Fiyat"] = "{:,d}".format(v)
 
                 if k == "liveAt":
                     date = datetime.fromtimestamp(v).strftime("%H:%M:%S")
-                    obj["Listeleneceği saat: "] = date
-                    obj["Sıra: "] += 1
+                    obj["Listeleneceği saat"] = date
+                    obj["Sıra"] += 1
 
             for key,val in obj.items():
-                print(key,val)
+                print("""{} : {} """.format(key,val))
 
     # if theJSON is not list, it has 1 data and it's dict
     else:
@@ -40,17 +40,17 @@ def printResults(data):
         for k,v in theJSON.items():
 
             if k == "name":
-                obj["Item: "] = v
+                obj["Item"] = v
 
             if k == "price":
-                obj["Fiyat: "] = v
+                obj["Fiyat"] = v
 
             if k == "liveAt":
                 date = datetime.fromtimestamp(v).strftime("%H:%M:%S")
-                obj["Listeleneceği saat: "] = date
+                obj["Listeleneceği saat"] = date
 
         for key,val in obj.items():
-            print(key,val)
+            print("""{} : {}""".format(key,val))
         
 
 def WaitList():
