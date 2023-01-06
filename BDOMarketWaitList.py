@@ -53,7 +53,7 @@ def printResults(data):
             print(key,val)
         
 
-def main():
+def WaitList():
     # define a variable to hold the source URL
     # in this case we'll use the free data feed from the arsha.io
     # this feed lists Black Desert Online(MENA) Market Wait List
@@ -71,5 +71,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    WaitList()
 
