@@ -2,16 +2,21 @@ import discord
 import requests
 import json
 from datetime import datetime
+import pytz
 
 intents = discord.Intents.default()
 intents.message_content = True
 
 client = discord.Client(intents=intents)
 
+# using for item's liveat time zone and this ignoring host's local timezone / edit for your local
+new_timezone = pytz.timezone("Europe/Istanbul")
+
 # Client log-in
 @client.event
 async def on_ready():
     print(f'We have logged in as {client.user}')
+
 
 # BDO-MENA Market
 def WaitList():
@@ -44,7 +49,7 @@ def WaitList():
                         obj["Fiyat"] = "{:,d}".format(v)
 
                     if k == "liveAt":
-                        date = datetime.fromtimestamp(v).strftime("%H:%M:%S")
+                        date = datetime.fromtimestamp(v).astimezone(new_timezone).strftime("%H:%M:%S")
                         obj["Listeleneceği saat"] = date
 
             # this loop our values converting to string
@@ -72,13 +77,13 @@ def WaitList():
                     obj["Fiyat"] = str("{:,d}".format(v))
 
                 if k == "liveAt":
-                    date = datetime.fromtimestamp(v).strftime("%H:%M:%S")
+                    date = datetime.fromtimestamp(v).astimezone(new_timezone).strftime("%H:%M:%S")
                     obj["Listeleneceği saat"] = str(date)
 
         # this loop our values converting to string
         for key,val in obj.items():
             converted += key + " : " + val + "\n"
-        return(converted)
+        return(converted + nonline )
         
 
 
