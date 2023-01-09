@@ -88,9 +88,12 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    if message.content.startswith('$waitlist'):
+    if message.content.startswith('.!waitlist'):
         waitlist = WaitList()
         await message.channel.send("```" +waitlist+"```")
+      
+    if message.content.startswith('.!help'):
+        await message.channel.send("```.!waitlist : Merkez pazara yeni kaydedilen öğelerin satışta olacağı saat verilerini getirir.```")
         
 
 client.run('TOKEN')
