@@ -1,5 +1,7 @@
-# BDO-CM-Wait-List-Getter
-## Black Desert Online:MENA Central Market Wait List Getter 
-I will use it for a discord bot<br>
+# Black Desert Online
+## Central Market Discord BOT
+### CONTEXT
 
-![ss](https://cdn.discordapp.com/attachments/1035852765756411995/1060886192138240020/image.png)
+The purpose behind this project is to enable players to use central market from Discord via the [BDO Market API](https://documenter.getpostman.com/view/4028519/TzK2bEVg).
+
+![ss](https://cdn.discordapp.com/attachments/1035852765756411995/1061978960881274960/image.png)
