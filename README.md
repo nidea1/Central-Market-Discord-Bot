@@ -1,6 +1,5 @@
 # Black Desert Online
 ## Central Market Discord BOT
-### CONTEXT
 
 The purpose behind this project is to enable players to use central market from Discord via the [BDO Market API](https://documenter.getpostman.com/view/4028519/TzK2bEVg).
 
