@@ -38,19 +38,15 @@ def WaitList():
             # now we can access the contents of the JSON like any other Python object
             for k,v in theJSON[i].items():
 
-                if k == "error":
-                    return("Wait list is empty.")
+                if k == "name":
+                    obj["Öğe"] = v
 
-                else:
-                    if k == "name":
-                        obj["Öğe"] = v
+                if k == "price":
+                    obj["Fiyat"] = "{:,d}".format(v)
 
-                    if k == "price":
-                        obj["Fiyat"] = "{:,d}".format(v)
-
-                    if k == "liveAt":
-                        date = datetime.fromtimestamp(v).astimezone(new_timezone).strftime("%H:%M:%S")
-                        obj["Listeleneceği saat"] = date
+                if k == "liveAt":
+                    date = datetime.fromtimestamp(v).astimezone(new_timezone).strftime("%H:%M:%S")
+                    obj["Listeleneceği saat"] = date
 
             # this loop our values converting to string
             for key,val in obj.items():
