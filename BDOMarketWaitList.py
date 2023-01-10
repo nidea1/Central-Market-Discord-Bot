@@ -1,21 +1,84 @@
 import discord
+from discord.ext import tasks
 import requests
 import json
 from datetime import datetime
 import pytz
+
 
 intents = discord.Intents.default()
 intents.message_content = True
 
 client = discord.Client(intents=intents)
 
-# using for item's liveat time zone and this ignoring host's local timezone / edit for your local
 new_timezone = pytz.timezone("Europe/Istanbul")
 
 # Client log-in
 @client.event
 async def on_ready():
     print(f'We have logged in as {client.user}')
+
+def Lunar():
+    # Use the json module to load the string data into a dictionary
+    response = requests.get("https://api.arsha.io/v2/mena/orders?id=11663&sid=5")
+    theJSON = json.loads(response.text)
+    # Created a new dict for our getted datas
+    obj = {"Fiyat": "", "Satış": "", "Sipariş": ""}
+    # converted variable for our messages
+    converted = str()
+    nonline = "\n" + "------------------------------------ \n \n"
+
+    # now we can access the contents of the JSON like any other Python object
+    for k,v in theJSON.items():
+        if type(theJSON[k]) == list:
+            for i in range(len(theJSON[k])):   
+                for key,val in theJSON[k][i].items():
+
+                    if key == "price":
+                        obj["Fiyat"] = str("{:,d}".format(val))
+
+                    if key == "buyers":
+                        obj["Satış"] = val
+
+                    if key == "sellers":
+                        obj["Sipariş"] = val
+
+                # this loop our values converting to string
+                for key,val in obj.items():
+                    converted += key + " : " + str(val) + "\n" 
+                converted += nonline
+            return(converted)
+
+def Disto():
+    # Use the json module to load the string data into a dictionary
+    response = requests.get("https://api.arsha.io/v2/mena/orders?id=11853&sid=5")
+    theJSON = json.loads(response.text)
+    # Created a new dict for our getted datas
+    obj = {"Fiyat": "", "Satış": "", "Sipariş": ""}
+    # converted variable for our messages
+    converted = str()
+    nonline = "\n" + "------------------------------------ \n \n"
+
+    # now we can access the contents of the JSON like any other Python object
+    for k,v in theJSON.items():
+        if type(theJSON[k]) == list:
+            for i in range(len(theJSON[k])):             
+                for key,val in theJSON[k][i].items():
+
+                    if key == "price":
+                        obj["Fiyat"] = str("{:,d}".format(val))
+
+                    if key == "buyers":
+                        obj["Satış"] = val
+
+                    if key == "sellers":
+                        obj["Sipariş"] = val
+
+                # this loop our values converting to string
+                for key,val in obj.items():
+                    converted += key + " : " + str(val) + "\n" 
+                converted += nonline
+            return(converted)
 
 
 # BDO-MENA Market
@@ -37,7 +100,7 @@ def WaitList():
 
             # now we can access the contents of the JSON like any other Python object
             for k,v in theJSON[i].items():
-
+              
                 if k == "name":
                     obj["Öğe"] = v
 
@@ -63,7 +126,7 @@ def WaitList():
         for k,v in theJSON.items():
 
             if k == "error":
-                    return("Wait list is empty.")
+                    return("Şu anda pazar kaydını bekleyen öğe yok.")
 
             else:
                 if k == "name":
@@ -79,22 +142,44 @@ def WaitList():
         # this loop our values converting to string
         for key,val in obj.items():
             converted += key + " : " + val + "\n"
-        return(converted + nonline )
+        return(converted)
         
-
+# Spamming waitlist loop
+@tasks.loop(seconds= 15)
+async def WaitListLoop(ctx):
+    waitlist = WaitList()
+    channel = ctx.channel.name
+    restricted_channels = ["apptest"]
+    if channel in restricted_channels:
+        await ctx.channel.send("```" +waitlist+"```", delete_after=15)
 
 # BOT EVENTS
 @client.event
-async def on_message(message):
-    if message.author == client.user:
-        return
+async def on_message(ctx):
+    nonline = "\n" + "------------------------------------ \n \n"
 
-    if message.content.startswith('.!waitlist'):
-        waitlist = WaitList()
-        await message.channel.send("```" +waitlist+"```")
-      
-    if message.content.startswith('.!help'):
-        await message.channel.send("```.!waitlist : Merkez pazara yeni kaydedilen öğelerin satışta olacağı saat verilerini getirir.```")
+    # for a specific channel
+    channel = ctx.channel.name
+    restricted_channels = ["apptest"]
+    if channel in restricted_channels:
+
+        if ctx.author == client.user:
+            return
+
+        if ctx.content == "-list loop":
+            WaitListLoop.start(ctx)
+        
+        if ctx.content == "-list":
+            await ctx.channel.send("""```-list loop:\n  "Pazar Kaydı" döngüsünü başlatır.\n\n-list pen uyanan:\n  "PEN: Uyanan Ay Kolyesi" bilgilerini listeler.\n\n-list pen çöküş:\n  "PEN: Kara Çöküş Küpesi" bilgilerini listeler.```""")
+
+        if ctx.content == "-list pen uyanan":
+            lunar = Lunar()
+            await ctx.channel.send("```PEN: Uyanan Ay Kolyesi" + nonline + lunar+"```")
+
+        if ctx.content == "-list pen çöküş":
+            disto = Disto()
+            await ctx.channel.send("```PEN: Kara Çöküş Küpesi" + nonline + disto+"```")
+
         
 
 client.run('TOKEN')
