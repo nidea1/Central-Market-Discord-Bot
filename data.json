@@ -1,0 +1,42 @@
+{
+    "items": 
+    [
+        {
+            "name": "Black Distortion Earring",
+            "id": 11853,
+            "search": ["kara","cokus","kupesi","black","distortion","disto","earring"]
+        },
+        {
+            "name": "Revived Lunar Necklace",
+            "id": 11663,
+            "search": ["uyanan","ay","kolyesi","revived","lunar","neck","necklace"]
+        }
+    ],
+    "grades":
+    {
+        "0": [" ", "0"],
+        "1": ["pri","1"],
+        "2": ["duo","2"],
+        "3": ["tri", "3"],
+        "4": ["tet", "4"],
+        "5": ["pen", "5"]
+    },
+    "regions" : ["na","eu","sea","mena","kr","ru","jp","th","tw","sa","console_eu","console_na","console_asia",""],
+    "languages" : ["en","de","fr","ru","es","sp","pt","jp","kr","th","tr","tw","cn"],
+    "errors":
+    {
+        "tr": 
+        [
+            "Esya bulunamadi!",
+            "Yukseltme seviyesi bulunamadi!",
+            "Sunucu bulunamadi!"
+        ],
+        "en":
+        [
+            "Item has not found!",
+            "Enhance level has not found!",
+            "Region has not found!"
+        ]
+    }
+    
+}
