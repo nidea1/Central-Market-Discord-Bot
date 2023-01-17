@@ -14,17 +14,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-if os.path.exists("config.json"):
-    config = json.load(open("config.json"))
-else:
-    sys.exit("config.json not found! Please add it and try again.")
-
-# if not os.path.isfile(f"{os.path.realpath(os.path.dirname(__file__))}/config.json"):
-#     sys.exit("'config.json' not found! Please add it and try again.")
-# else:
-#     with open(f"{os.path.realpath(os.path.dirname(__file__))}/config.json") as file:
-#         config = json.load(file)
-
 
 intents = discord.Intents.default()
 intents.members = True
@@ -33,7 +22,6 @@ intents.presences = True
 
 
 bot = Bot(command_prefix = "-", intents=intents, help_command=None)
-bot.config = config
 
 @bot.event
 async def on_ready():

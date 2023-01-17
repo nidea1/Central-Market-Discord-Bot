@@ -48,10 +48,10 @@ class General(commands.Cog, name="general"):
 
     @commands.hybrid_command(
         name="help",
-        description="help"
+        description="List of the available commands:"
     )
     async def help(self, context: Context) -> None:
-        prefix = self.bot.config["prefix"]
+        prefix = "-"
         embed = discord.Embed(
             title="Help",
             description="List of the available commands:",
@@ -72,7 +72,7 @@ class General(commands.Cog, name="general"):
     
     @commands.hybrid_command(
         name="lang",
-        description="Central market language"
+        description="Central market language setting."
     )
     async def lang(self, context: Context, arg1 = "tr") -> None:
         arg1 = arg1.lower()
@@ -101,7 +101,7 @@ class General(commands.Cog, name="general"):
 
     @commands.hybrid_command(
     name="region",
-    description="Central market language"
+    description="Central market region setting."
     )
     async def region(self, context: Context, arg1 = "mena") -> None:
         arg1 = arg1.lower()
@@ -225,7 +225,7 @@ class General(commands.Cog, name="general"):
 
     @commands.hybrid_command(
         name="waitlist",
-        description = "Central Market in registration queue"
+        description = "Central Market in registration queue list."
     )
     async def waitlist(self, context: Context):
         self.waitlistrun()
@@ -243,11 +243,18 @@ class General(commands.Cog, name="general"):
                     value=f"""```arm\n{WLtxt}```""",
                     inline=False)
         else:
-            WLtxt = "Item: " + self.theJSON["name"].replace("&#39;","") + "\n" + "Price: " + "{:,d}".format(self.theJSON["price"]) + "\n" + "LiveAt: " + datetime.fromtimestamp(self.theJSON["liveAt"]).strftime("%H:%M:%S")
-            embed.add_field(
-                name="In registration queue",
-                value=f"""```arm\n{WLtxt}```""",
-                inline=False)
+            if list(self.theJSON)[0] == "error":
+                WLtxt = "There are no items in registration queue."
+                embed.add_field(
+                    name="In registration queue",
+                    value=f"""```arm\n{WLtxt}```""",
+                    inline=False)
+            else:
+                WLtxt = "Item: " + self.theJSON["name"].replace("&#39;","") + "\n" + "Price: " + "{:,d}".format(self.theJSON["price"]) + "\n" + "LiveAt: " + datetime.fromtimestamp(self.theJSON["liveAt"]).strftime("%H:%M:%S")
+                embed.add_field(
+                    name="In registration queue",
+                    value=f"""```arm\n{WLtxt}```""",
+                    inline=False)
         
         
 
@@ -255,31 +262,29 @@ class General(commands.Cog, name="general"):
 
     @commands.hybrid_command(
         name="loop",
-        description = "Central Market in registration queue loop"
+        description = "Central Market in registration queue loop."
     )
     async def loop(self, context: Context, arg1=""):
         arg1 = arg1.lower()
-        
-        if arg1 == "":
-            embed = discord.Embed(
+
+        embed = discord.Embed(
                 title=self.BTitle,
                 description="""```fix\n-loop help | start | stop region```""",
                 color=0x9C84EF)
+
+        if arg1 == "":
             embed.add_field(
                 name="In registration queue",
                 value=f"""```fix\nYou did not enter a command.```""",
                 inline=False)
-        
+            await context.send(embed=embed)
+
         elif arg1 == "help":
-            embed = discord.Embed(
-                title=self.BTitle,
-                description="""```fix\n-loop start | stop region```""",
-                color=0x9C84EF)
             embed.add_field(
                 name="In registration queue",
                 value=f"""```fix\nThis loop is replacing every 15 seconds.```""",
                 inline=False)
-            
+            await context.send(embed=embed)        
 
         elif arg1 == "start":
             self.WaitListLoop.start(context)
@@ -288,16 +293,14 @@ class General(commands.Cog, name="general"):
             self.WaitListLoop.cancel()
 
         else:
-            embed = discord.Embed(
-                title=self.BTitle,
-                description="""```fix\n-loop help | start | stop region```""",
-                color=0x9C84EF)
             embed.add_field(
                 name="In registration queue",
                 value=f"""```fix\nYou did enter a wrong command.```""",
                 inline=False)
+            await context.send(embed=embed)
+        
 
-        await context.send(embed=embed)
+        
 
 
     @tasks.loop(seconds= 15)
