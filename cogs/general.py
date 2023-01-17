@@ -27,7 +27,7 @@ class General(commands.Cog, name="general"):
         self.sid = "sid"
         self.grade = "grade"
         self.item_name = "item_name"
-        self.BTitle = "Merkez Pazar"
+        self.BTitle = "Central Market"
         self.nonline = "\n" + "\n" + "------------------------------------" + "\n" + "\n" 
         self.language = "tr"
         self.server = "mena"
@@ -54,7 +54,7 @@ class General(commands.Cog, name="general"):
         prefix = "-"
         embed = discord.Embed(
             title="Help",
-            description="List of the available commands:",
+            description="""```fix\nList of the available commands:```""",
             color=Colour.blue())
         for i in self.bot.cogs:
             cog = self.bot.get_cog(i.lower())
@@ -81,20 +81,20 @@ class General(commands.Cog, name="general"):
             self.language = arg1
             embed = discord.Embed(
                 title=self.BTitle,
-                description="-lang :lang",
+                description="""```fix\n-lang :lang```""",
                 color=0x9C84EF)
             embed.add_field(
                 name="Central Market Language",
-                value=f"""```arm\nCentral market language is {self.language.upper()} now.```""",
+                value=f"""```fix\nCentral market language is {self.language.upper()} now.```""",
                 inline=False)
         else:
             embed = discord.Embed(
                 title=self.BTitle,
-                description="-lang :lang",
+                description="""```fix\n-lang :lang```""",
                 color=0x9C84EF)
             embed.add_field(
                 name="Central Market Language",
-                value=f"""```arm\nYou did enter a wrong language.```""",
+                value=f"""```fix\nYou did enter a wrong language.```""",
                 inline=False)
 
         await context.send(embed=embed)
