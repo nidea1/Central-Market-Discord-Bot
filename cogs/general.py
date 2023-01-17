@@ -237,9 +237,9 @@ class General(commands.Cog, name="general"):
 
         if type(self.theJSON) == list:
             for i in range(len(self.theJSON)):
-                WLtxt = "Item: " + self.theJSON[i]["name"].replace("&#39;","") + "\n" + "Price: " + "{:,d}".format(self.theJSON[i]["price"]) + "\n" + "LiveAt: " + datetime.fromtimestamp(self.theJSON[i]["liveAt"]).strftime("%H:%M:%S")
+                WLtxt = "Price: " + "{:,d}".format(self.theJSON[i]["price"]) + "\n" + "LiveAt: " + datetime.fromtimestamp(self.theJSON[i]["liveAt"]).strftime("%H:%M:%S")
                 embed.add_field(
-                    name="In registration queue" if i == 0 else "",
+                    name=self.theJSON[i]["name"].replace("&#39;","'"),
                     value=f"""```arm\n{WLtxt}```""",
                     inline=False)
         else:
@@ -250,9 +250,9 @@ class General(commands.Cog, name="general"):
                     value=f"""```arm\n{WLtxt}```""",
                     inline=False)
             else:
-                WLtxt = "Item: " + self.theJSON["name"].replace("&#39;","") + "\n" + "Price: " + "{:,d}".format(self.theJSON["price"]) + "\n" + "LiveAt: " + datetime.fromtimestamp(self.theJSON["liveAt"]).strftime("%H:%M:%S")
+                WLtxt = "Price: " + "{:,d}".format(self.theJSON["price"]) + "\n" + "LiveAt: " + datetime.fromtimestamp(self.theJSON["liveAt"]).strftime("%H:%M:%S")
                 embed.add_field(
-                    name="In registration queue",
+                    name=self.theJSON["name"].replace("&#39;","'"),
                     value=f"""```arm\n{WLtxt}```""",
                     inline=False)
         
