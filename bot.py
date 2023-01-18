@@ -1,9 +1,7 @@
 import os
-import sys
 import random
 import platform
 import asyncio
-import json
 
 
 import discord
