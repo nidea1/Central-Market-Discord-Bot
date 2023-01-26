@@ -12,26 +12,27 @@ from discord.ext.commands import Context
 
 
 class General(commands.Cog, name="general"):
+    #DATA
+    if os.path.exists("data.json"):
+        data = json.load(open("data.json"))
+    else:
+        sys.exit("data.json not found! Please add it and try again.")
+
+    #STATICS
+    region_id = "region_id"
+    item_id = "item_id"
+    sid = "sid"
+    grade = "grade"
+    item_name = "item_name"
+    BTitle = "Central Market"
+    nonline = "\n" + "\n" + "------------------------------------" + "\n" + "\n" 
+    language = "tr"
+    server = "mena"
+    ITitle = grade + " " + item_name
+
 
     def __init__(self, bot):
         self.bot = bot
-        #DATA
-        if os.path.exists("data.json"):
-            self.data = json.load(open("data.json"))
-        else:
-            sys.exit("data.json not found! Please add it and try again.")
-
-        #STATICS
-        self.region_id = "region_id"
-        self.item_id = "item_id"
-        self.sid = "sid"
-        self.grade = "grade"
-        self.item_name = "item_name"
-        self.BTitle = "Central Market"
-        self.nonline = "\n" + "\n" + "------------------------------------" + "\n" + "\n" 
-        self.language = "tr"
-        self.server = "mena"
-        self.ITitle = self.grade + " " + self.item_name
 
     def run(self):
 
