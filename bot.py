@@ -37,9 +37,12 @@ async def status_task():
 
 @bot.event
 async def on_message(message: discord.Message):
-    if message.author == bot.user or message.author.bot:
-        return
-    await bot.process_commands(message)
+    channel = message.channel.name
+    restricted_channels = ["central-market"]
+    if channel in restricted_channels:
+        if message.author == bot.user or message.author.bot:
+            return
+        await bot.process_commands(message)
 
 @bot.event
 async def on_command_error(context: Context, error):
