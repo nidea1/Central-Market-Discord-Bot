@@ -95,7 +95,7 @@ class General(commands.Cog, name="general"):
                 color=0x9C84EF)
             embed.add_field(
                 name="Central Market Language",
-                value=f"""```fix\nYou did enter a wrong language.```""",
+                value="""```fix\nYou did enter a wrong language.```""",
                 inline=False)
 
         await context.send(embed=embed)
@@ -124,7 +124,7 @@ class General(commands.Cog, name="general"):
                 color=0x9C84EF)
             embed.add_field(
                 name="Central Market Region",
-                value=f"""```fix\nYou did enter a wrong region.```""",
+                value="""```fix\nYou did enter a wrong region.```""",
                 inline=False)
 
         await context.send(embed=embed)
@@ -171,7 +171,7 @@ class General(commands.Cog, name="general"):
                     color=0x9C84EF)
                 embed.add_field(
                     name=self.ITitle,
-                    value=f"""```fix\nYou did not enter a item.```""",
+                    value="""```fix\nYou did not enter a item.```""",
                     inline=False)
             else:
                 Ltxt = self.data["errors"][self.language][0]
@@ -276,14 +276,14 @@ class General(commands.Cog, name="general"):
         if arg1 == "":
             embed.add_field(
                 name="In registration queue",
-                value=f"""```fix\nYou did not enter a command.```""",
+                value="""```fix\nYou did not enter a command.```""",
                 inline=False)
             await context.send(embed=embed)
 
         elif arg1 == "help":
             embed.add_field(
                 name="In registration queue",
-                value=f"""```fix\nThis loop is replacing every 15 seconds.```""",
+                value="""```fix\nThis loop is replacing every 15 seconds.```""",
                 inline=False)
             await context.send(embed=embed)        
 
@@ -296,7 +296,7 @@ class General(commands.Cog, name="general"):
         else:
             embed.add_field(
                 name="In registration queue",
-                value=f"""```fix\nYou did enter a wrong command.```""",
+                value="""```fix\nYou did enter a wrong command.```""",
                 inline=False)
             await context.send(embed=embed)
         
