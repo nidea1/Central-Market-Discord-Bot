@@ -45,6 +45,7 @@ The purpose behind this project is to enable players to use central market from 
 * Create .env file in the folder where bot.py is located. 
 * Add ```token="BOT_TOKEN"```
 * Edit your prefix from line 24 in bot.py(optional)
+* Edit restricted channels from line 42 in bot.py(suggested, default = "central-market")
 
 ## Questions/Suggestions/Bug Reports
 
